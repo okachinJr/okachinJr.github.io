@@ -6,6 +6,9 @@
   --gb-darker: #274b2e;
   --gb-darkest: #102719;
   --screen-glow: rgba(207, 220, 147, 0.2);
+  --shell-body: #d2cec3;
+  --shell-groove: #55534e;
+  --shell-groove-dark: #383733;
   --pixel: 3px;
   color-scheme: dark;
   font-family: "Courier New", "MS Gothic", monospace;
@@ -24,9 +27,7 @@ body {
   min-width: 300px;
   margin: 0;
   color: var(--gb-darkest);
-  background:
-    linear-gradient(rgba(16, 39, 25, 0.88), rgba(16, 39, 25, 0.88)),
-    repeating-linear-gradient(0deg, #193923 0 2px, #274b2e 2px 4px);
+  background: var(--shell-body);
 }
 
 body::before {
@@ -35,11 +36,11 @@ body::before {
   z-index: 10;
   pointer-events: none;
   content: "";
-  opacity: 0.14;
+  opacity: 0.08;
   background: repeating-linear-gradient(
     0deg,
-    rgba(16, 39, 25, 0) 0 3px,
-    rgba(16, 39, 25, 0.32) 3px 4px
+    rgba(68, 66, 62, 0) 0 3px,
+    rgba(68, 66, 62, 0.16) 3px 4px
   );
 }
 
@@ -58,11 +59,11 @@ button {
   margin: 0 auto;
   padding: 12px;
   overflow: hidden;
-  background: var(--gb-darkest);
+  background: var(--shell-body);
   box-shadow:
-    0 0 0 3px var(--gb-dark),
-    0 0 0 6px var(--gb-darker),
-    0 0 36px rgba(0, 0, 0, 0.52);
+    0 0 0 3px var(--shell-groove),
+    0 0 0 6px var(--shell-groove-dark),
+    0 0 30px rgba(48, 46, 42, 0.28);
 }
 
 .pixel-window,
