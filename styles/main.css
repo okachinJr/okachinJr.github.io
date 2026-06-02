@@ -1,11 +1,11 @@
 :root {
-  --gb-lightest: #e0e777;
-  --gb-light: #aab55b;
-  --gb-mid: #74823c;
-  --gb-dark: #445329;
-  --gb-darker: #27351b;
-  --gb-darkest: #101a0d;
-  --screen-glow: rgba(224, 231, 119, 0.18);
+  --gb-lightest: #cfdc93;
+  --gb-light: #a9bd70;
+  --gb-mid: #728e4e;
+  --gb-dark: #426b3b;
+  --gb-darker: #274b2e;
+  --gb-darkest: #102719;
+  --screen-glow: rgba(207, 220, 147, 0.2);
   --pixel: 3px;
   color-scheme: dark;
   font-family: "Courier New", "MS Gothic", monospace;
@@ -25,8 +25,8 @@ body {
   margin: 0;
   color: var(--gb-darkest);
   background:
-    linear-gradient(rgba(16, 26, 13, 0.8), rgba(16, 26, 13, 0.8)),
-    repeating-linear-gradient(0deg, #1a2813 0 2px, #243418 2px 4px);
+    linear-gradient(rgba(16, 39, 25, 0.88), rgba(16, 39, 25, 0.88)),
+    repeating-linear-gradient(0deg, #193923 0 2px, #274b2e 2px 4px);
 }
 
 body::before {
@@ -35,11 +35,11 @@ body::before {
   z-index: 10;
   pointer-events: none;
   content: "";
-  opacity: 0.22;
+  opacity: 0.14;
   background: repeating-linear-gradient(
     0deg,
-    rgba(16, 26, 13, 0) 0 3px,
-    rgba(16, 26, 13, 0.42) 3px 4px
+    rgba(16, 39, 25, 0) 0 3px,
+    rgba(16, 39, 25, 0.32) 3px 4px
   );
 }
 
@@ -59,7 +59,10 @@ button {
   padding: 12px;
   overflow: hidden;
   background: var(--gb-darkest);
-  box-shadow: 0 0 0 3px var(--gb-dark), 0 0 40px rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 0 0 3px var(--gb-dark),
+    0 0 0 6px var(--gb-darker),
+    0 0 36px rgba(0, 0, 0, 0.52);
 }
 
 .pixel-window,
@@ -70,7 +73,7 @@ button {
   box-shadow:
     0 0 0 var(--pixel) var(--gb-light),
     0 0 0 calc(var(--pixel) * 2) var(--gb-darkest),
-    6px 6px 0 var(--gb-darker);
+    5px 5px 0 var(--gb-darker);
 }
 
 .hero {
@@ -79,7 +82,9 @@ button {
   overflow: hidden;
   border: var(--pixel) solid var(--gb-darkest);
   background: var(--gb-dark);
-  box-shadow: 0 0 0 var(--pixel) var(--gb-mid);
+  box-shadow:
+    0 0 0 var(--pixel) var(--gb-mid),
+    0 0 0 calc(var(--pixel) * 2) var(--gb-darkest);
 }
 
 .hero-image {
@@ -133,6 +138,7 @@ p {
   color: var(--gb-lightest);
   background: var(--gb-darker);
   border-bottom: var(--pixel) solid var(--gb-darkest);
+  box-shadow: inset 0 -3px 0 var(--gb-dark);
 }
 
 .window-titlebar h2 {
@@ -181,8 +187,8 @@ p {
 .more-link:hover,
 .more-link:focus-visible {
   padding-left: 6px;
-  color: var(--gb-lightest);
-  background: var(--gb-dark);
+  color: var(--gb-darkest);
+  background: var(--gb-light);
   outline: 0;
 }
 
@@ -232,7 +238,7 @@ p {
   border: 3px solid var(--gb-dark);
   color: var(--gb-darkest);
   background: var(--gb-light);
-  box-shadow: inset -4px -4px 0 var(--gb-mid);
+  box-shadow: inset -4px -4px 0 var(--gb-mid), inset 3px 3px 0 var(--gb-lightest);
   cursor: pointer;
   font-size: 24px;
   font-weight: 900;
@@ -242,7 +248,7 @@ p {
 .contact-button:focus-visible {
   translate: 0 -3px;
   color: var(--gb-lightest);
-  background: var(--gb-dark);
+  background: var(--gb-darker);
   outline: 3px solid var(--gb-darkest);
 }
 
