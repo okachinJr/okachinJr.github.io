@@ -3,10 +3,113 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Okachin Jr の個人サイト。制作物、メモ、プロフィールを掲載しています。"
+  />
   <title>Okachin Jr</title>
+  <link rel="stylesheet" href="./styles/main.css" />
+  <script src="./scripts/main.js" defer></script>
 </head>
 <body>
-  <h1>Okachin Jr</h1>
-  <p>準備中</p>
+  <div class="site-shell">
+    <main>
+      <section class="hero" id="home" aria-label="おかちんJr. タイトル画面">
+        <img
+          class="hero-image"
+          src="./assets/images/hero-title-screen.png"
+          alt="ゲームボーイ風のタイトル画面。おかちんJr. の文字と人物、PRESS STARTボタンが描かれている"
+        />
+        <a class="press-start-link" href="#work" aria-label="スタートして制作物を見る"></a>
+      </section>
+
+      <div class="content-grid">
+        <section class="pixel-window content-window" id="work" aria-labelledby="projects-title">
+          <header class="window-titlebar">
+            <h2 id="projects-title">PROJECTS</h2>
+            <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
+          </header>
+          <div class="window-body">
+            <a class="list-row" href="#work">
+              <span class="row-icon" aria-hidden="true">D</span>
+              <span>Desk Diary</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="list-row" href="#work">
+              <span class="row-icon" aria-hidden="true">T</span>
+              <span>Focus Timer</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="list-row" href="#work">
+              <span class="row-icon" aria-hidden="true">F</span>
+              <span>File Shelf</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="more-link" href="#work">More... <span aria-hidden="true">&gt;</span></a>
+          </div>
+        </section>
+
+        <section class="pixel-window content-window" id="log" aria-labelledby="notes-title">
+          <header class="window-titlebar">
+            <h2 id="notes-title">NOTES</h2>
+            <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
+          </header>
+          <div class="window-body">
+            <a class="list-row note-row" href="#log">
+              <time datetime="2026-05-25">05/25</time>
+              <span>Build Log</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="list-row note-row" href="#log">
+              <time datetime="2026-05-18">05/18</time>
+              <span>Reading</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="list-row note-row" href="#log">
+              <time datetime="2026-05-10">05/10</time>
+              <span>Ideas</span>
+              <span class="row-arrow" aria-hidden="true">&gt;</span>
+            </a>
+            <a class="more-link" href="#log">More... <span aria-hidden="true">&gt;</span></a>
+          </div>
+        </section>
+      </div>
+
+      <section class="pixel-window contact-window" id="contact" aria-labelledby="contact-title">
+        <header class="window-titlebar">
+          <h2 id="contact-title">CONTACT</h2>
+          <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
+        </header>
+        <div class="contact-actions">
+          <button class="contact-button" type="button" data-contact="MAIL" aria-label="メール">
+            <span aria-hidden="true">@</span>
+          </button>
+          <a
+            class="contact-button"
+            href="https://github.com/okachinJr"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <span aria-hidden="true">GH</span>
+          </a>
+          <button class="contact-button" type="button" data-contact="CODE" aria-label="コード">
+            <span aria-hidden="true">&lt;/&gt;</span>
+          </button>
+          <button class="contact-button" type="button" data-contact="X" aria-label="X">
+            <span aria-hidden="true">X</span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span class="footer-plant" aria-hidden="true">+</span>
+      <p>Thanks for stopping by!</p>
+      <span class="footer-heart" aria-hidden="true">&lt;3</span>
+    </footer>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
