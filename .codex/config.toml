@@ -1,0 +1,7 @@
+# サンドボックス外のフォルダやファイルに干渉する際、いつユーザーへ確認するか
+approval_policy = "on-request"
+
+allow_login_shell = false
+
+# Codexが技術的にどこまで触ることができるか
+sandbox_mode = "workspace-write"

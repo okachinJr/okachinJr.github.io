@@ -20,88 +20,30 @@
           src="./assets/images/hero-title-screen.png"
           alt="ゲームボーイ風のタイトル画面。おかちんJr. の文字と人物、PRESS STARTボタンが描かれている"
         />
-        <a class="press-start-link" href="#work" aria-label="スタートして制作物を見る"></a>
+        <a class="press-start-link" href="#links" aria-label="スタートしてリンク一覧を見る"></a>
       </section>
 
-      <div class="content-grid">
-        <section class="pixel-window content-window" id="work" aria-labelledby="projects-title">
-          <header class="window-titlebar">
-            <h2 id="projects-title">PROJECTS</h2>
-            <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
-          </header>
-          <div class="window-body">
-            <a class="list-row" href="#work">
-              <span class="row-icon" aria-hidden="true">D</span>
-              <span>Desk Diary</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="list-row" href="#work">
-              <span class="row-icon" aria-hidden="true">T</span>
-              <span>Focus Timer</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="list-row" href="#work">
-              <span class="row-icon" aria-hidden="true">F</span>
-              <span>File Shelf</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="more-link" href="#work">More... <span aria-hidden="true">&gt;</span></a>
-          </div>
-        </section>
-
-        <section class="pixel-window content-window" id="log" aria-labelledby="notes-title">
-          <header class="window-titlebar">
-            <h2 id="notes-title">NOTES</h2>
-            <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
-          </header>
-          <div class="window-body">
-            <a class="list-row note-row" href="#log">
-              <time datetime="2026-05-25">05/25</time>
-              <span>Build Log</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="list-row note-row" href="#log">
-              <time datetime="2026-05-18">05/18</time>
-              <span>Reading</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="list-row note-row" href="#log">
-              <time datetime="2026-05-10">05/10</time>
-              <span>Ideas</span>
-              <span class="row-arrow" aria-hidden="true">&gt;</span>
-            </a>
-            <a class="more-link" href="#log">More... <span aria-hidden="true">&gt;</span></a>
-          </div>
-        </section>
-      </div>
-
-      <section class="pixel-window contact-window" id="contact" aria-labelledby="contact-title">
-        <header class="window-titlebar">
-          <h2 id="contact-title">CONTACT</h2>
-          <span class="window-buttons" aria-hidden="true"><i>-</i><i>x</i></span>
-        </header>
-        <div class="contact-actions">
-          <button class="contact-button" type="button" data-contact="MAIL" aria-label="メール">
-            <span aria-hidden="true">@</span>
-          </button>
-          <button class="contact-button" type="button" data-contact="GH" aria-label="GitHub">
-            <span aria-hidden="true">GH</span>
-          </button>
-          <button class="contact-button" type="button" data-contact="CODE" aria-label="コード">
-            <span aria-hidden="true">&lt;/&gt;</span>
-          </button>
-          <button class="contact-button" type="button" data-contact="X" aria-label="X">
-            <span aria-hidden="true">X</span>
-          </button>
-        </div>
-      </section>
+      <nav class="icon-launcher" id="links" aria-label="リンク集">
+        <a class="launcher-item" href="#" data-link-slot="GAME" aria-label="自作Game置き場">
+          <img src="./assets/icons/game.png" alt="" />
+        </a>
+        <a class="launcher-item" href="#" data-link-slot="WEB APP" aria-label="自作Webアプリ置き場">
+          <img src="./assets/icons/web-app.png" alt="" />
+        </a>
+        <a class="launcher-item" href="#" data-link-slot="PIXEL ART" aria-label="ピクセルアート置き場">
+          <img src="./assets/icons/pixel-art.png" alt="" />
+        </a>
+        <a class="launcher-item" href="#" data-link-slot="X" aria-label="X">
+          <img src="./assets/icons/x.png" alt="" />
+        </a>
+        <a class="launcher-item" href="#" data-link-slot="NOTE" aria-label="Note">
+          <img src="./assets/icons/note.png" alt="" />
+        </a>
+        <a class="launcher-item" href="#" data-link-slot="INSTAGRAM" aria-label="Instagram">
+          <img src="./assets/icons/instagram.png" alt="" />
+        </a>
+      </nav>
     </main>
-
-    <footer class="site-footer">
-      <span class="footer-plant" aria-hidden="true">+</span>
-      <p>Thanks for stopping by!</p>
-      <span class="footer-heart" aria-hidden="true">&lt;3</span>
-    </footer>
   </div>
 
   <div class="toast" role="status" aria-live="polite"></div>
