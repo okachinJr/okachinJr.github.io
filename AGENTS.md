@@ -1,96 +1,118 @@
-# Project Notes for Codex
+# AGENTS.md — okachinJr.github.io（おかちんJr. 個人サイト）
 
-このリポジトリは、GitHub Pages で公開する `okachinJr.github.io` の個人サイトです。  
-次のセッションでも作業を滑らかに再開できるよう、このプロジェクト固有の経緯・判断・注意点をまとめます。
+GitHub Pages で公開する個人サイト（カスタムドメイン: `www.okachinjr.com`）。
+初代ゲームボーイ（DMG）のタイトル画面を再現した1ファイル構成。2026-07-11 に旧構成（styles/ + scripts/ 分離型）から全面差し替えた。旧版は Git 履歴にある。
 
-## 現在のサイト構成
+**このファイルはデザインハーネス（デザイン保護規則）を兼ねる。「不変条件」と書かれた項目を破る変更は、ユーザーが明示的に指示した場合を除き禁止。**
 
-- フレームワークなしの静的サイトです。
-- 主なファイル:
-  - `index.html`
-  - `styles/main.css`
-  - `scripts/main.js`
-  - `assets/images/hero-title-screen.png`
-  - `assets/icons/*.png`
-- 現在の画面構成は、ヒーロー画像の下に6個のアイコン画像を3列 x 2段で並べる構成です。
-- `PROJECTS`, `NOTES`, `CONTACT`, `Thanks for stopping by!` の旧パネル構成は、現在の表示から外しています。
-- 各アイコンのリンク先は未確定です。現状は `href="#"` と `data-link-slot` で仮置きし、クリック時に `COMING SOON` のトーストを出します。
+## ファイル構成
 
-## デザイン方針
+| パス | 役割 |
+|---|---|
+| `index.html` | サイト本体。CSS/JS 完全インライン、これ1つで完結 |
+| `assets/images/hero-title-screen.png` | メインビジュアル（後述の通り変更禁止） |
+| `assets/icons/*.png` | アイコン素材6枚。**現デザインでは未使用だが削除禁止**（ユーザーが Pixquare 製アイコンに差し替えて将来使う計画あり） |
+| `CNAME` | カスタムドメイン設定。**変更・削除・リネーム禁止**（消すと公開ドメインが壊れる） |
+| `design-harness-c/` | **このサイトとは無関係**。別デザイン（レトロホームページ型）で新規サイトを作るための持ち出し用キット。`index.html` にこのフォルダの様式を適用しないこと。指示がない限り編集しないこと（詳細は同フォルダの README.md） |
+| `.codex/config.toml` | Codex 設定 |
+| `.claude/launch.json` | Claude Code 用ローカルサーバー設定（Codex は使わなくてよい） |
 
-- ユーザーはゲームボーイ / ゲームボーイアドバンス時代のピクセルアート表現を好みます。
-- 全体の雰囲気は Game Boy 風のグリーン系、低解像度、ドット感を重視します。
-- ただし、ゲームボーイ本体そのもののUI要素、物理ボタン、電源ライトなどを安易に追加しないでください。ユーザーが明示した場合のみ取り入れます。
-- ヒーロー画像はサイトの中心要素です。ユーザーが明示しない限り、`assets/images/hero-title-screen.png` は変更しないでください。
-- ヒーロー画像のレイアウトも、ユーザーが明示しない限り変更しないでください。
-- アイコンは「画像そのもの」を見せる方針です。画像の外側にカード枠、追加ボーダー、装飾背景、影付きパネルを追加しないでください。
+## デザインハーネス（不変条件）
 
-## ヒーロー画像に関する注意
+### 1. カラーパレット — 5色のみ
+`index.html` の `:root` に定義済み。**この5色以外の色コードを追加しない。**
 
-- 対象ファイル: `assets/images/hero-title-screen.png`
-- 以前確認したSHA256:
-  - `64A5784199E72BD0455DB1E75CE6555C6623BFD46474DDF031E32A722286C60D`
-- ヒーロー画像を触らない作業でも、重要な変更後は必要に応じてハッシュ確認してください。
+```css
+--gb0: #1e3a20;  /* 最暗・インク・背景 */
+--gb1: #4a6b3d;  /* 暗めの中間色・セクション背景 */
+--gb2: #8fae5e;  /* 中間色・補助テキスト */
+--gb3: #cfe0a0;  /* 明るい中間色・ボタン背景 */
+--gb4: #e4eec6;  /* 最明・本文テキスト・ウィンドウ背景 */
+```
 
-## アイコン画像の扱い
+唯一の例外: メニューオーバーレイの `rgba(30, 58, 32, 0.75)`（--gb0 の半透明版）。新たな半透明色は追加しない。
 
-現在参照しているアイコン:
+### 2. タイポグラフィ — 2書体のみ
+- 日本語・本文: `'DotGothic16', sans-serif`
+- 英字の見出し・装飾・ボタン: `'Press Start 2P', monospace`
+- 読み込みは Google Fonts の `<link>` のみ。他のフォント・ウェイト追加禁止。
 
-- `assets/icons/game.png`
-- `assets/icons/web-app.png`
-- `assets/icons/pixel-art.png`
-- `assets/icons/x.png`
-- `assets/icons/note.png`
-- `assets/icons/instagram.png`
+### 3. ピクセル表現の規律
+- `border-radius` 禁止（角はすべて直角。ピクセル風の角落としは clip-path で行う）
+- `box-shadow` はオフセットのみ可（例: `4px 4px 0 var(--gb0)`）。**ぼかし（blur値）禁止**
+- グラデーション禁止（背景パターン用の `repeating-linear-gradient` 等でハードエッジを作る場合のみ可）
+- 画像・ドット表現には `image-rendering: pixelated` を必ず適用
+- アンチエイリアスで滑らかに見える表現（大きな `opacity` トランジション、ソフトなフェード等）を新規に足さない
 
-ユーザーは Pixquare で64x64キャンバスのピクセルアートアイコンを作成する予定です。差し替え時の推奨は以下です。
+### 4. モーションの規律
+- アニメーション・トランジションのタイミング関数は `steps()` を原則とする（既存の `linear 0.05s` の押下演出のみ例外）
+- `ease` / `ease-in-out` / 長い smooth トランジション禁止（レトロ感が消えるため）
+- 新規アニメーションを足す場合も必ず `@media (prefers-reduced-motion: reduce)` で停止させる
 
-- 形式: PNG
-- 背景: 透過ありが望ましい
-- 元絵: 64x64
-- 書き出し: 256x256 または 512x512
-- 拡大方式: 最近傍 / Nearest Neighbor
-- 6枚すべて同じキャンバスサイズ・同じ余白設計にする
-- 既存の生成PNGと解像度を完全一致させる必要はありません。
+### 5. 構造の不変条件（セクション順序を維持）
+1. タイトル画面（`100dvh`、ヒーロー画像を二重枠フレームで中央表示）
+2. `▶ PRESS START ◀` ボタン（点滅、クリック / Enter / Space / S キーで発動）
+3. コマンドメニュー（`role="dialog"`、6リンク、↑↓移動 / Enter決定 / Esc閉じ / フォーカストラップ / 閉じたら元の位置へフォーカス復帰）
+4. LINKSセクション — **JSが無効でも全リンクへ到達できる保険。削除禁止**
+5. バナーセクション（88×31pxバナー）+ `© 1995 OKACHIN JR.`
 
-差し替えは基本的に同名ファイルを置き換えれば `index.html` 側の変更なしで反映できます。
+### 6. 実装の規律
+- 1ファイル構成を維持（CSS/JSはインライン、外部JSライブラリ・ビルドツール導入禁止）
+- バニラJSのみ。`console.log` を残さない
+- リンクの `target="_blank"` には必ず `rel="noopener noreferrer"`
+- `:focus-visible` のアウトラインを消さない
+- 既存内容を全削除・再生成せず、差分修正（apply_patch）で対応する
 
-## 実装方針
+## ユーザーのデザイン嗜好（旧版から引き継ぎ）
 
-- 既存内容を全削除・再生成せず、差分修正で対応してください。
-- 手編集は `apply_patch` を使ってください。
-- CSSでは `image-rendering: pixelated;` を維持してください。
-- アイコン表示サイズはCSSで調整し、画像ファイルの解像度差に依存しすぎないようにしてください。
-- レスポンシブ時も基本は3列 x 2段を維持します。極端に狭い画面で崩れる場合のみ、ユーザーに相談して変更してください。
-- 見た目の確認は、ユーザーが `file:///C:/Users/wakat/Desktop/WORK/project-devs/okachinJr.github.io/index.html` で開いていることが多いです。
+- ゲームボーイ / ゲームボーイアドバンス時代のピクセルアート表現を好む
+- **ゲームボーイ本体そのもののUI要素（物理ボタン、電源ランプ、筐体の枠など）を安易に追加しない。**ユーザーが明示した場合のみ取り入れる
+- アイコン画像を使う場合は「画像そのもの」を見せる方針。画像の外側にカード枠・追加ボーダー・装飾背景・影付きパネルを追加しない
 
-## よくある確認コマンド
+## ヒーロー画像に関する注意（不変条件）
 
-ヒーロー画像のハッシュ確認:
+- 対象: `assets/images/hero-title-screen.png`
+- ユーザーが明示しない限り、**画像の差し替え・加工・レイアウト変更をしない**
+- SHA256: `64A5784199E72BD0455DB1E75CE6555C6623BFD46474DDF031E32A722286C60D`
+- 重要な変更後はハッシュ確認を推奨:
 
 ```powershell
 Get-FileHash -Algorithm SHA256 assets\images\hero-title-screen.png
 ```
 
-アイコン参照の確認:
+## アイコン画像の扱い（将来の差し替え用メモ）
 
-```powershell
-rg -n "assets/icons|icon-launcher|launcher-item|data-link-slot" index.html styles/main.css scripts/main.js
-```
+ユーザーは Pixquare で 64x64 キャンバスのピクセルアートアイコンを作成する予定。差し替え時の推奨:
 
-未使用・変更状況の確認:
+- 形式: PNG（透過あり推奨）、元絵 64x64、書き出し 256x256 または 512x512
+- 拡大方式: 最近傍 / Nearest Neighbor
+- 6枚すべて同じキャンバスサイズ・同じ余白設計にする
 
-```powershell
-git status --short
-```
+## 変更後の検証チェックリスト（毎回実施）
 
-## Python 実行環境
+- [ ] 375px幅で横スクロールが発生しない（`scrollWidth === clientWidth`）
+- [ ] コンソールにエラー・警告・ログがない
+- [ ] PRESS START → メニュー開閉・↑↓/Enter/Esc・フォーカス復帰が動く
+- [ ] 使用色が既定5色（+オーバーレイの半透明1色）のみ
+- [ ] `prefers-reduced-motion: reduce` で点滅・フェードが止まる
+- [ ] `CNAME` が変更されていない
 
-画像検証や簡単な画像処理にPythonを使う場合は、原則としてCodex同梱のPythonを使ってください。
+## 公開（GitHub Pages）に関する注意
+
+- `main` ブランチへの push = 本番公開（`www.okachinjr.com` に即反映）。push 前に上記チェックリストを必ず通すこと
+- リンクの `href="#"`（TODO コメント付き）が残ったまま公開しない
+- シークレット（APIキー等）は存在しない構成を維持する。フォーム・API・外部スクリプトを追加する場合は事前にユーザーへセキュリティ影響を報告する
+
+## Python 実行環境（Codex）
+
+画像検証や簡単な処理に Python を使う場合は、Codex 同梱の Python を優先する:
 
 ```text
 C:\Users\wakat\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
 ```
 
-システム全体のPythonではなく、このパスを優先します。
+ローカル表示確認（任意）:
 
+```text
+<上記python.exe> -m http.server 3999
+```

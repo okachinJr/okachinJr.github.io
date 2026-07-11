@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<!--
+  GBレトロホームページ型テンプレート（デザインハーネス案C）
+  使い方・デザイン規則は同フォルダの README.md を必ず読むこと。
+  TODO コメント箇所とブランド文字列（おかちんJr. / OKACHIN JR.）を差し替えて使う。
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おかちんJr. オフィシャルホームページ | 案C: レトロホームページ型</title>
+<meta name="description" content="おかちんJr.の個人サイト。90年代ホームページ風・ゲームボーイカラーのRPGウィンドウデザイン。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gb0: #1e3a20;
+    --gb1: #4a6b3d;
+    --gb2: #8fae5e;
+    --gb3: #cfe0a0;
+    --gb4: #e4eec6;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--gb4);
+    background-image:
+      radial-gradient(var(--gb3) 1px, transparent 1px),
+      radial-gradient(var(--gb3) 1px, transparent 1px);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+    color: var(--gb0);
+    font-family: 'DotGothic16', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: none;
+  }
+
+  .pixel {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  a {
+    color: var(--gb0);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--gb0);
+    outline-offset: 2px;
+  }
+
+  .accent {
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  /* scanline overlay */
+  .scanlines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      var(--gb0) 0px,
+      var(--gb0) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  /* ===== Header ===== */
+  .site-header {
+    text-align: center;
+    padding: 32px 16px 20px;
+  }
+
+  .logo-text {
+    font-family: 'DotGothic16', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    color: var(--gb0);
+    text-shadow: 2px 2px 0 var(--gb2), 4px 4px 0 var(--gb1);
+    margin: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .sub-logo {
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(0.5rem, 2.4vw, 0.75rem);
+    color: var(--gb1);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== Ticker ===== */
+  .ticker-wrap {
+    background: var(--gb0);
+    color: var(--gb3);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 8px 0;
+    border-top: 2px solid var(--gb1);
+    border-bottom: 2px solid var(--gb1);
+  }
+
+  .ticker-track {
+    display: inline-block;
+    white-space: nowrap;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    padding-left: 100%;
+    animation: ticker-scroll 18s linear infinite;
+  }
+
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none;
+      padding-left: 0;
+      display: block;
+      text-align: center;
+      white-space: normal;
+    }
+  }
+
+  /* ===== RPG window base ===== */
+  .rpg-window {
+    background: var(--gb4);
+    border: 3px solid var(--gb0);
+    box-shadow: 0 0 0 3px var(--gb4) inset, 0 0 0 6px var(--gb0) inset;
+    padding: 18px;
+    position: relative;
+  }
+
+  .corner-tl,
+  .corner-tr,
+  .corner-bl,
+  .corner-br {
+    position: absolute;
+    color: var(--gb0);
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .corner-tl { top: 6px; left: 6px; }
+  .corner-tr { top: 6px; right: 6px; }
+  .corner-bl { bottom: 6px; left: 6px; }
+  .corner-br { bottom: 6px; right: 6px; }
+
+  /* ===== Hero ===== */
+  .hero-section {
+    padding: 28px 16px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero-window {
+    max-width: 860px;
+    width: 100%;
+  }
+
+  .hero-window img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--gb0);
+  }
+
+  /* ===== Select heading ===== */
+  .section-heading {
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: clamp(0.85rem, 3vw, 1.2rem);
+    color: var(--gb0);
+    margin: 40px 0 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== Link grid ===== */
+  .link-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 16px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  @media (max-width: 880px) {
+    .link-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .link-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .link-card {
+    display: block;
+    text-decoration: none;
+    background: var(--gb4);
+    border: 3px double var(--gb0);
+    outline: 1px solid var(--gb0);
+    outline-offset: -6px;
+    padding: 18px 12px;
+    text-align: center;
+    color: var(--gb0);
+    position: relative;
+    transition: none;
+  }
+
+  .link-card .cursor {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    opacity: 0;
+  }
+
+  .link-card:hover,
+  .link-card:focus-visible {
+    background: var(--gb0);
+    color: var(--gb4);
+    outline-color: var(--gb4);
+  }
+
+  .link-card:hover .cursor,
+  .link-card:focus-visible .cursor {
+    opacity: 1;
+  }
+
+  .link-card .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  .link-card .link-name {
+    display: block;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .link-card .link-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: inherit;
+  }
+
+  /* ===== Greeting ===== */
+  .greeting-section {
+    padding: 20px 16px 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .greeting-window {
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .greeting-window p {
+    margin: 6px 0;
+    font-size: 1rem;
+  }
+
+  /* ===== Footer ===== */
+  .site-footer {
+    margin-top: 40px;
+    padding: 24px 16px 32px;
+    text-align: center;
+    border-top: 3px double var(--gb0);
+  }
+
+  .banner-heading {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+
+  .banner-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .banner-88x31 {
+    width: 88px;
+    height: 31px;
+    border: 2px solid var(--gb0);
+    background: var(--gb3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2px;
+    text-decoration: none;
+    color: var(--gb0);
+    position: relative;
+  }
+
+  .banner-88x31::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border: 1px dashed var(--gb1);
+    pointer-events: none;
+  }
+
+  .banner-88x31 span {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.42rem;
+    line-height: 1.3;
+  }
+
+  .banner-88x31:hover,
+  .banner-88x31:focus-visible {
+    background: var(--gb0);
+    color: var(--gb4);
+  }
+
+  .linkfree-note {
+    font-size: 0.9rem;
+    margin: 10px 0 18px;
+  }
+
+  .copyright {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    color: var(--gb1);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <p class="logo-text">おかちんJr.</p>
+    <p class="sub-logo">OKACHIN JR. OFFICIAL HOMEPAGE</p>
+  </header>
+
+  <div class="ticker-wrap">
+    <span class="ticker-track">★ WELCOME TO OKACHIN JR. HOMEPAGE ★ SINCE 1995 ★ LINK FREE ★ WELCOME TO OKACHIN JR. HOMEPAGE ★ SINCE 1995 ★ LINK FREE ★</span>
+  </div>
+
+  <main>
+    <section class="hero-section" aria-label="メインビジュアル">
+      <div class="hero-window rpg-window">
+        <span class="corner-tl" aria-hidden="true">✦</span>
+        <span class="corner-tr" aria-hidden="true">✦</span>
+        <span class="corner-bl" aria-hidden="true">✦</span>
+        <span class="corner-br" aria-hidden="true">✦</span>
+        <img
+          class="pixel"
+          src="hero-title-screen.png"
+          alt="ゲームボーイ風タイトル画面。緑モノクロのピクセルアートで「おかちんJr.」のロゴ、PRESS START、下部に(C)1995 OKACHIN JR.の表記が描かれている。"
+          width="860"
+          height="645"
+        >
+      </div>
+    </section>
+
+    <h2 class="section-heading">▼ SELECT ▼</h2>
+
+    <div class="link-grid">
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">✎</span>
+        <span class="link-name">note</span>
+        <span class="link-desc">ブログはこちら</span>
+      </a>
+
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">✕</span>
+        <span class="link-name">X</span>
+        <span class="link-desc">フォローしてね</span>
+      </a>
+
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">⌂</span>
+        <span class="link-name">MY WEBSITE</span>
+        <span class="link-desc">自作サイトです</span>
+      </a>
+
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">①</span>
+        <span class="link-name">LINK 01</span>
+        <span class="link-desc">ここにリンク説明</span>
+      </a>
+
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">②</span>
+        <span class="link-name">LINK 02</span>
+        <span class="link-desc">ここにリンク説明</span>
+      </a>
+
+      <!-- TODO: URL差し替え -->
+      <a class="link-card" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="cursor" aria-hidden="true">▶</span>
+        <span class="icon" aria-hidden="true">③</span>
+        <span class="link-name">LINK 03</span>
+        <span class="link-desc">ここにリンク説明</span>
+      </a>
+    </div>
+
+    <section class="greeting-section" aria-label="ごあいさつ">
+      <div class="greeting-window rpg-window">
+        <span class="corner-tl" aria-hidden="true">✦</span>
+        <span class="corner-tr" aria-hidden="true">✦</span>
+        <span class="corner-bl" aria-hidden="true">✦</span>
+        <span class="corner-br" aria-hidden="true">✦</span>
+        <p>おかちんJr.の こじんサイトへ ようこそ！</p>
+        <p>のんびり こうしんして いく よてい です。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <h2 class="banner-heading">- BANNER -</h2>
+    <div class="banner-row">
+      <!-- TODO: URL差し替え -->
+      <a class="banner-88x31" href="#" target="_blank" rel="noopener noreferrer">
+        <span>OKACHIN<br>JR.</span>
+      </a>
+      <!-- TODO: URL差し替え -->
+      <a class="banner-88x31" href="#" target="_blank" rel="noopener noreferrer">
+        <span>LINK<br>FREE</span>
+      </a>
+      <!-- TODO: URL差し替え -->
+      <a class="banner-88x31" href="#" target="_blank" rel="noopener noreferrer">
+        <span>SINCE<br>1995</span>
+      </a>
+      <!-- TODO: URL差し替え -->
+      <a class="banner-88x31" href="#" target="_blank" rel="noopener noreferrer">
+        <span>GAME<br>BOY</span>
+      </a>
+    </div>
+    <p class="linkfree-note">このサイトは リンクフリーです</p>
+    <p class="copyright">© 1995 OKACHIN JR.</p>
+  </footer>
+
+</body>
+</html>

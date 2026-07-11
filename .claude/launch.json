@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "okachin-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "3999"],
+      "port": 3999
+    }
+  ]
+}

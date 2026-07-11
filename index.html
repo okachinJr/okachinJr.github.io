@@ -1,51 +1,583 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Okachin Jr の個人サイト。制作物、メモ、プロフィールを掲載しています。"
-  />
-  <title>Okachin Jr</title>
-  <link rel="stylesheet" href="./styles/main.css" />
-  <script src="./scripts/main.js?v=2" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おかちんJr. - PRESS START</title>
+<meta name="description" content="ゲームボーイ風個人サイト おかちんJr. タイトル画面からリンク集へ。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%231e3a20'/%3E%3Crect x='1' y='1' width='6' height='6' fill='%23e4eec6'/%3E%3Crect x='2' y='2' width='4' height='4' fill='%238fae5e'/%3E%3Crect x='3' y='3' width='2' height='2' fill='%231e3a20'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gb0: #1e3a20; /* 最暗 / インク */
+    --gb1: #4a6b3d;
+    --gb2: #8fae5e;
+    --gb3: #cfe0a0;
+    --gb4: #e4eec6; /* 最明 */
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: var(--gb0);
+    color: var(--gb4);
+    font-family: 'DotGothic16', sans-serif;
+    line-height: 1.7;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  a {
+    color: var(--gb4);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px dashed var(--gb3);
+    outline-offset: 3px;
+  }
+
+  /* ===== ブートフェード演出 ===== */
+  #boot-fade {
+    position: fixed;
+    inset: 0;
+    background: var(--gb0);
+    z-index: 9999;
+    pointer-events: none;
+    animation: bootFadeOut 0.6s steps(6, end) forwards;
+  }
+
+  @keyframes bootFadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #boot-fade {
+      display: none;
+    }
+  }
+
+  /* ===== タイトル画面 ===== */
+  .title-screen {
+    min-height: 100dvh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 4vw, 2rem);
+    padding: clamp(1rem, 5vw, 3rem) 1rem;
+    background: var(--gb0);
+    text-align: center;
+  }
+
+  .title-frame {
+    width: min(900px, 96vw);
+    padding: 10px;
+    border: 6px solid var(--gb4);
+    background: var(--gb0);
+    box-shadow:
+      0 0 0 4px var(--gb0),
+      0 0 0 8px var(--gb3);
+  }
+
+  .title-frame__inner {
+    border: 3px solid var(--gb2);
+    display: block;
+    line-height: 0;
+  }
+
+  .title-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background: var(--gb0);
+  }
+
+  .press-start-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(0.7rem, 2.4vw, 1rem);
+    color: var(--gb4);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.75em 1em;
+    letter-spacing: 0.05em;
+    animation: pressBlink 1.2s steps(1, end) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press-start-btn {
+      animation: none;
+    }
+  }
+
+  @keyframes pressBlink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0.15; }
+  }
+
+  .title-hint {
+    font-family: 'DotGothic16', sans-serif;
+    font-size: 0.85rem;
+    color: var(--gb2);
+  }
+
+  /* ===== コマンドメニュー(ダイアログ) ===== */
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 58, 32, 0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  .menu-overlay.is-open {
+    display: flex;
+  }
+
+  .menu-window {
+    width: min(420px, 100%);
+    background: var(--gb4);
+    color: var(--gb0);
+    border: 6px solid var(--gb0);
+    box-shadow:
+      0 0 0 3px var(--gb4),
+      0 0 0 7px var(--gb0);
+    padding: 1.25rem 1rem;
+    clip-path: polygon(
+      0 6px, 6px 6px, 6px 0,
+      calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
+      100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
+      6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
+    );
+    transform-origin: top center;
+    animation: menuOpen 0.28s steps(5, end);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-window {
+      animation: none;
+    }
+  }
+
+  @keyframes menuOpen {
+    0% { transform: scaleY(0.1); opacity: 0; }
+    100% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .menu-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.75rem;
+    margin: 0 0 1rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .menu-list li {
+    display: flex;
+  }
+
+  .menu-link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    text-decoration: none;
+    color: var(--gb0);
+    font-size: 0.95rem;
+    padding: 0.5em 0.6em;
+    border: 2px solid transparent;
+    background: transparent;
+  }
+
+  .menu-link .cursor {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.7rem;
+    opacity: 0;
+    width: 1em;
+  }
+
+  .menu-link.is-active {
+    background: var(--gb3);
+    border-color: var(--gb1);
+  }
+
+  .menu-link.is-active .cursor {
+    opacity: 1;
+  }
+
+  .menu-close-hint {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--gb1);
+  }
+
+  /* ===== LINKSセクション（本文） ===== */
+  .links-section {
+    background: var(--gb1);
+    padding: clamp(2rem, 6vw, 4rem) 1rem;
+  }
+
+  .section-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .section-heading {
+    font-family: 'Press Start 2P', monospace;
+    font-size: clamp(1rem, 4vw, 1.4rem);
+    color: var(--gb4);
+    text-align: center;
+    margin: 0 0 2rem;
+    letter-spacing: 0.08em;
+  }
+
+  .link-buttons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .link-buttons a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--gb0);
+    background: var(--gb3);
+    border: 3px solid var(--gb0);
+    box-shadow: 4px 4px 0 var(--gb0);
+    padding: 0.9em 1em;
+    font-size: 1rem;
+    transition: transform 0.05s linear;
+  }
+
+  .link-buttons a:hover,
+  .link-buttons a:focus-visible {
+    background: var(--gb4);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--gb0);
+  }
+
+  /* ===== バナーセクション ===== */
+  .banner-section {
+    background: var(--gb0);
+    padding: clamp(2rem, 6vw, 4rem) 1rem;
+    text-align: center;
+  }
+
+  .banner-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .banner {
+    width: 88px;
+    height: 31px;
+    border: 2px solid var(--gb4);
+    background: var(--gb1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .banner__line1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: var(--gb4);
+    letter-spacing: 0.02em;
+  }
+
+  .banner__line2 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 6px;
+    color: var(--gb3);
+    letter-spacing: 0.02em;
+    margin-top: 3px;
+  }
+
+  .copyright {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: var(--gb2);
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-  <div class="site-shell">
-    <main>
-      <section class="hero" id="home" aria-label="おかちんJr. タイトル画面">
-        <img
-          class="hero-image"
-          src="./assets/images/hero-title-screen.png"
-          alt="ゲームボーイ風のタイトル画面。おかちんJr. の文字と人物、PRESS STARTボタンが描かれている"
-        />
-        <a class="press-start-link" href="#links" aria-label="スタートしてリンク一覧を見る"></a>
-      </section>
 
-      <nav class="icon-launcher" id="links" aria-label="リンク集">
-        <a class="launcher-item" href="#" data-link-slot="GAME" aria-label="自作Game置き場">
-          <img src="./assets/icons/game.png" alt="" />
-        </a>
-        <a class="launcher-item" href="#" data-link-slot="WEB APP" aria-label="自作Webアプリ置き場">
-          <img src="./assets/icons/web-app.png" alt="" />
-        </a>
-        <a class="launcher-item" href="#" data-link-slot="PIXEL ART" aria-label="ピクセルアート置き場">
-          <img src="./assets/icons/pixel-art.png" alt="" />
-        </a>
-        <a class="launcher-item" href="#" data-link-slot="X" aria-label="X">
-          <img src="./assets/icons/x.png" alt="" />
-        </a>
-        <a class="launcher-item" href="#" data-link-slot="NOTE" aria-label="Note">
-          <img src="./assets/icons/note.png" alt="" />
-        </a>
-        <a class="launcher-item" href="#" data-link-slot="INSTAGRAM" aria-label="Instagram">
-          <img src="./assets/icons/instagram.png" alt="" />
-        </a>
-      </nav>
-    </main>
+<div id="boot-fade" aria-hidden="true"></div>
+
+<!-- ===== タイトル画面 ===== -->
+<header class="title-screen">
+  <div class="title-frame">
+    <span class="title-frame__inner">
+      <img
+        class="pixelated"
+        src="assets/images/hero-title-screen.png"
+        alt="ゲームボーイ風タイトル画面。緑モノクロのピクセルアートで「おかちんJr.」のロゴ、PRESS STARTの文字、下部に(C)1995 OKACHIN JR.の表記が描かれている。"
+        width="800"
+        height="600"
+      >
+    </span>
   </div>
 
-  <div class="toast" role="status" aria-live="polite"></div>
+  <button type="button" id="press-start-btn" class="press-start-btn" aria-haspopup="dialog" aria-controls="menu-dialog">
+    ▶ PRESS START ◀
+  </button>
+  <p class="title-hint">クリック / Enter・Space・Sキーでスタート</p>
+</header>
+
+<!-- ===== コマンドメニュー（モーダル） ===== -->
+<div class="menu-overlay" id="menu-overlay">
+  <div class="menu-window" role="dialog" aria-modal="true" aria-labelledby="menu-dialog-title" id="menu-dialog">
+    <p class="menu-title" id="menu-dialog-title">COMMAND?</p>
+    <ul class="menu-list" id="menu-list">
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>note
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>X
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>MY WEBSITE（自作サイト）
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>LINK 01
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>LINK 02
+        </a>
+      </li>
+      <li>
+        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
+          <span class="cursor">▶</span>LINK 03
+        </a>
+      </li>
+    </ul>
+    <p class="menu-close-hint">↑↓:移動　Enter:決定　Esc:閉じる</p>
+  </div>
+</div>
+
+<!-- ===== LINKSセクション（JS無しでも到達可能） ===== -->
+<main>
+  <section class="links-section" aria-labelledby="links-heading">
+    <div class="section-inner">
+      <h2 class="section-heading" id="links-heading">LINKS</h2>
+      <ul class="link-buttons">
+        <li><a href="#" target="_blank" rel="noopener noreferrer">note</a></li> <!-- TODO: URL差し替え -->
+        <li><a href="#" target="_blank" rel="noopener noreferrer">X</a></li> <!-- TODO: URL差し替え -->
+        <li><a href="#" target="_blank" rel="noopener noreferrer">MY WEBSITE（自作サイト）</a></li> <!-- TODO: URL差し替え -->
+        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 01</a></li> <!-- TODO: URL差し替え -->
+        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 02</a></li> <!-- TODO: URL差し替え -->
+        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 03</a></li> <!-- TODO: URL差し替え -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== バナーセクション ===== -->
+  <section class="banner-section" aria-label="相互リンクバナー">
+    <ul class="banner-row">
+      <li class="banner" aria-hidden="true">
+        <span class="banner__line1">OKACHIN</span>
+        <span class="banner__line2">JR.</span>
+      </li>
+      <li class="banner" aria-hidden="true">
+        <span class="banner__line1">LINK</span>
+        <span class="banner__line2">FREE</span>
+      </li>
+      <li class="banner" aria-hidden="true">
+        <span class="banner__line1">GAME</span>
+        <span class="banner__line2">BOY(R)</span>
+      </li>
+      <li class="banner" aria-hidden="true">
+        <span class="banner__line1">88 x 31</span>
+        <span class="banner__line2">SINCE '95</span>
+      </li>
+    </ul>
+    <p class="copyright">&copy; 1995 OKACHIN JR.</p>
+  </section>
+</main>
+
+<script>
+  (function () {
+    'use strict';
+
+    var pressStartBtn = document.getElementById('press-start-btn');
+    var overlay = document.getElementById('menu-overlay');
+    var menuDialog = document.getElementById('menu-dialog');
+    var menuItems = Array.prototype.slice.call(document.querySelectorAll('[data-menu-item]'));
+    var activeIndex = 0;
+    var lastFocusedElement = null;
+
+    function setActiveIndex(index) {
+      if (menuItems.length === 0) {
+        return;
+      }
+      activeIndex = (index + menuItems.length) % menuItems.length;
+      menuItems.forEach(function (item, i) {
+        item.classList.toggle('is-active', i === activeIndex);
+      });
+      menuItems[activeIndex].focus();
+    }
+
+    function openMenu() {
+      lastFocusedElement = document.activeElement;
+      overlay.classList.add('is-open');
+      document.addEventListener('keydown', handleMenuKeydown);
+      setActiveIndex(0);
+    }
+
+    function closeMenu() {
+      overlay.classList.remove('is-open');
+      document.removeEventListener('keydown', handleMenuKeydown);
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+      }
+    }
+
+    function handleMenuKeydown(event) {
+      switch (event.key) {
+        case 'ArrowDown':
+          event.preventDefault();
+          setActiveIndex(activeIndex + 1);
+          break;
+        case 'ArrowUp':
+          event.preventDefault();
+          setActiveIndex(activeIndex - 1);
+          break;
+        case 'Enter':
+          event.preventDefault();
+          menuItems[activeIndex].click();
+          break;
+        case 'Escape':
+          event.preventDefault();
+          closeMenu();
+          break;
+        case 'Tab':
+          // メニュー内にフォーカスを留める
+          event.preventDefault();
+          if (event.shiftKey) {
+            setActiveIndex(activeIndex - 1);
+          } else {
+            setActiveIndex(activeIndex + 1);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    pressStartBtn.addEventListener('click', openMenu);
+
+    pressStartBtn.addEventListener('keydown', function (event) {
+      var key = event.key.toLowerCase();
+      if (key === 'enter' || key === ' ' || key === 's') {
+        event.preventDefault();
+        openMenu();
+      }
+    });
+
+    // タイトル画面らしく、どこにフォーカスがあってもSキーでスタートできるようにする
+    document.addEventListener('keydown', function (event) {
+      if (overlay.classList.contains('is-open')) {
+        return;
+      }
+      if (event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        openMenu();
+      }
+    });
+
+    overlay.addEventListener('click', function (event) {
+      if (event.target === overlay) {
+        closeMenu();
+      }
+    });
+
+    menuItems.forEach(function (item, index) {
+      item.addEventListener('mouseenter', function () {
+        setActiveIndex(index);
+      });
+      item.addEventListener('focus', function () {
+        activeIndex = index;
+        menuItems.forEach(function (menuItem, i) {
+          menuItem.classList.toggle('is-active', i === index);
+        });
+      });
+    });
+
+    // ブートフェード演出は一度だけ、アニメーション終了後に要素を除去する
+    var bootFade = document.getElementById('boot-fade');
+    if (bootFade) {
+      bootFade.addEventListener('animationend', function () {
+        bootFade.remove();
+      });
+      // reduced-motion環境ではCSSでdisplay:noneのためanimationendが発火しない可能性がある
+      window.setTimeout(function () {
+        if (bootFade.parentNode) {
+          bootFade.remove();
+        }
+      }, 800);
+    }
+  })();
+</script>
+
 </body>
 </html>
