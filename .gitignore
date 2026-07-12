@@ -18,3 +18,5 @@ Desktop.ini
 # ログ・一時ファイル
 *.log
 *.tmp
+.visual-qa/
+reports/codex-work/
