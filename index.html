@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>おかちんJr. - PRESS START</title>
-<meta name="description" content="ゲームボーイ風個人サイト おかちんJr. タイトル画面からリンク集へ。">
+<title>おかちんJr. | 個人サイト</title>
+<meta name="description" content="おかちんJr.の個人サイト。自作サイト、note、Xへのリンクを掲載しています。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%231e3a20'/%3E%3Crect x='1' y='1' width='6' height='6' fill='%23e4eec6'/%3E%3Crect x='2' y='2' width='4' height='4' fill='%238fae5e'/%3E%3Crect x='3' y='3' width='2' height='2' fill='%231e3a20'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,7 @@
   }
 
   body {
+    min-height: 100svh;
     background: var(--gb0);
     color: var(--gb4);
     font-family: 'DotGothic16', sans-serif;
@@ -37,6 +38,7 @@
   }
 
   img {
+    display: block;
     max-width: 100%;
   }
 
@@ -46,522 +48,174 @@
     image-rendering: crisp-edges;
   }
 
-  a {
-    color: var(--gb4);
-  }
-
-  a:focus-visible,
-  button:focus-visible,
-  [tabindex]:focus-visible {
+  a:focus-visible {
     outline: 3px dashed var(--gb3);
     outline-offset: 3px;
   }
 
-  /* ===== ブートフェード演出 ===== */
-  #boot-fade {
-    position: fixed;
-    inset: 0;
-    background: var(--gb0);
-    z-index: 9999;
-    pointer-events: none;
-    animation: bootFadeOut 0.6s steps(6, end) forwards;
-  }
-
-  @keyframes bootFadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    #boot-fade {
-      display: none;
-    }
-  }
-
-  /* ===== タイトル画面 ===== */
-  .title-screen {
-    min-height: 100dvh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(1rem, 4vw, 2rem);
-    padding: clamp(1rem, 5vw, 3rem) 1rem;
-    background: var(--gb0);
-    text-align: center;
-  }
-
-  .title-frame {
-    width: min(900px, 96vw);
-    padding: 10px;
-    border: 6px solid var(--gb4);
-    background: var(--gb0);
-    box-shadow:
-      0 0 0 4px var(--gb0),
-      0 0 0 8px var(--gb3);
-  }
-
-  .title-frame__inner {
-    border: 3px solid var(--gb2);
-    display: block;
-    line-height: 0;
-  }
-
-  .title-frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    background: var(--gb0);
-  }
-
-  .press-start-btn {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(0.7rem, 2.4vw, 1rem);
-    color: var(--gb4);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0.75em 1em;
-    letter-spacing: 0.05em;
-    animation: pressBlink 1.2s steps(1, end) infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .press-start-btn {
-      animation: none;
-    }
-  }
-
-  @keyframes pressBlink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0.15; }
-  }
-
-  .title-hint {
-    font-family: 'DotGothic16', sans-serif;
-    font-size: 0.85rem;
-    color: var(--gb2);
-  }
-
-  /* ===== コマンドメニュー(ダイアログ) ===== */
-  .menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(30, 58, 32, 0.75);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 1rem;
-  }
-
-  .menu-overlay.is-open {
-    display: flex;
-  }
-
-  .menu-window {
-    width: min(420px, 100%);
-    background: var(--gb4);
-    color: var(--gb0);
-    border: 6px solid var(--gb0);
-    box-shadow:
-      0 0 0 3px var(--gb4),
-      0 0 0 7px var(--gb0);
-    padding: 1.25rem 1rem;
-    clip-path: polygon(
-      0 6px, 6px 6px, 6px 0,
-      calc(100% - 6px) 0, calc(100% - 6px) 6px, 100% 6px,
-      100% calc(100% - 6px), calc(100% - 6px) calc(100% - 6px), calc(100% - 6px) 100%,
-      6px 100%, 6px calc(100% - 6px), 0 calc(100% - 6px)
-    );
-    transform-origin: top center;
-    animation: menuOpen 0.28s steps(5, end);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .menu-window {
-      animation: none;
-    }
-  }
-
-  @keyframes menuOpen {
-    0% { transform: scaleY(0.1); opacity: 0; }
-    100% { transform: scaleY(1); opacity: 1; }
-  }
-
-  .menu-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.75rem;
-    margin: 0 0 1rem;
-    text-align: center;
-    letter-spacing: 0.05em;
-  }
-
-  .menu-list {
-    list-style: none;
-    margin: 0;
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
-  .menu-list li {
-    display: flex;
-  }
-
-  .menu-link {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.6em;
-    text-decoration: none;
-    color: var(--gb0);
-    font-size: 0.95rem;
-    padding: 0.5em 0.6em;
-    border: 2px solid transparent;
-    background: transparent;
-  }
-
-  .menu-link .cursor {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.7rem;
-    opacity: 0;
-    width: 1em;
-  }
-
-  .menu-link.is-active {
-    background: var(--gb3);
-    border-color: var(--gb1);
-  }
-
-  .menu-link.is-active .cursor {
-    opacity: 1;
-  }
-
-  .menu-close-hint {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 0.7rem;
-    color: var(--gb1);
-  }
-
-  /* ===== LINKSセクション（本文） ===== */
-  .links-section {
-    background: var(--gb1);
-    padding: clamp(2rem, 6vw, 4rem) 1rem;
-  }
-
-  .section-inner {
-    max-width: 640px;
+  .site-home {
+    width: min(100%, 420px);
     margin: 0 auto;
+    padding: 24px 16px 32px;
   }
 
-  .section-heading {
-    font-family: 'Press Start 2P', monospace;
-    font-size: clamp(1rem, 4vw, 1.4rem);
-    color: var(--gb4);
-    text-align: center;
-    margin: 0 0 2rem;
-    letter-spacing: 0.08em;
-  }
-
-  .link-buttons {
-    list-style: none;
+  .hero {
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-  }
-
-  .link-buttons a {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    color: var(--gb0);
-    background: var(--gb3);
-    border: 3px solid var(--gb0);
-    box-shadow: 4px 4px 0 var(--gb0);
-    padding: 0.9em 1em;
-    font-size: 1rem;
-    transition: transform 0.05s linear;
-  }
-
-  .link-buttons a:hover,
-  .link-buttons a:focus-visible {
-    background: var(--gb4);
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 var(--gb0);
-  }
-
-  /* ===== バナーセクション ===== */
-  .banner-section {
-    background: var(--gb0);
-    padding: clamp(2rem, 6vw, 4rem) 1rem;
-    text-align: center;
-  }
-
-  .character-banner {
-    width: min(760px, 100%);
-    margin: 0 auto 1.5rem;
-    border: 2px solid var(--gb4);
-    background: var(--gb0);
+    border: 3px solid var(--gb3);
+    background: var(--gb1);
     box-shadow: 4px 4px 0 var(--gb1);
     overflow: hidden;
     clip-path: polygon(
-      6px 0,
-      calc(100% - 6px) 0,
-      calc(100% - 6px) 2px,
-      100% 2px,
-      100% calc(100% - 6px),
-      calc(100% - 2px) calc(100% - 6px),
-      calc(100% - 2px) 100%,
-      6px 100%,
-      6px calc(100% - 2px),
-      0 calc(100% - 2px),
-      0 6px,
-      2px 6px,
-      2px 2px,
-      6px 2px
+      8px 0,
+      calc(100% - 8px) 0,
+      calc(100% - 8px) 3px,
+      100% 3px,
+      100% calc(100% - 8px),
+      calc(100% - 3px) calc(100% - 8px),
+      calc(100% - 3px) 100%,
+      8px 100%,
+      8px calc(100% - 3px),
+      0 calc(100% - 3px),
+      0 8px,
+      3px 8px,
+      3px 3px,
+      8px 3px
     );
   }
 
-  .character-banner img {
-    display: block;
+  .hero img {
     width: 100%;
     height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
     image-rendering: pixelated;
   }
 
+  .primary-links {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .secondary-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .link-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    color: var(--gb0);
+    background: var(--gb3);
+    border: 3px solid var(--gb1);
+    box-shadow: 4px 4px 0 var(--gb1);
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.05s linear;
+  }
+
+  .link-card:hover,
+  .link-card:focus-visible {
+    background: var(--gb4);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--gb1);
+  }
+
+  .link-card--primary {
+    min-height: 80px;
+    padding: 16px 24px;
+  }
+
+  .link-card--secondary {
+    min-height: 64px;
+    padding: 16px;
+  }
+
+  .link-card__content {
+    display: grid;
+    gap: 8px;
+  }
+
+  .link-card__label {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+  }
+
+  .link-card__description {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .site-footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px solid var(--gb1);
+    text-align: center;
+  }
+
   .copyright {
+    margin: 0;
+    color: var(--gb2);
     font-family: 'Press Start 2P', monospace;
     font-size: 0.75rem;
-    color: var(--gb2);
-    margin: 0;
+    line-height: 1.6;
   }
 </style>
 </head>
 <body>
 
-<div id="boot-fade" aria-hidden="true"></div>
+<main class="site-home" aria-labelledby="site-title">
+  <h1 class="sr-only" id="site-title">おかちんJr.</h1>
 
-<!-- ===== タイトル画面 ===== -->
-<header class="title-screen">
-  <div class="title-frame">
-    <span class="title-frame__inner">
-      <img
-        class="pixelated"
-        src="assets/images/hero-title-screen.png"
-        alt="ゲームボーイ風タイトル画面。緑モノクロのピクセルアートで「おかちんJr.」のロゴ、PRESS STARTの文字、下部に(C)1995 OKACHIN JR.の表記が描かれている。"
-        width="800"
-        height="600"
-      >
-    </span>
-  </div>
+  <section class="hero" aria-label="おかちんJr. キービジュアル">
+    <img
+      class="pixelated"
+      src="assets/images/hero-home-v2.png"
+      alt="緑モノクロのピクセルアートで描かれた「おかちんJr.」のロゴと主人公。"
+      width="1448"
+      height="1086"
+    >
+  </section>
 
-  <button type="button" id="press-start-btn" class="press-start-btn" aria-haspopup="dialog" aria-controls="menu-dialog">
-    ▶ PRESS START ◀
-  </button>
-  <p class="title-hint">クリック / Enter・Space・Sキーでスタート</p>
-</header>
+  <nav class="primary-links" aria-label="メインリンク">
+    <a class="link-card link-card--primary" href="https://nazuna.okachinjr.com/" target="_blank" rel="noopener noreferrer">
+      <span class="link-card__content">
+        <span class="link-card__label">MY WEBSITE</span>
+        <span class="link-card__description">自作サイト</span>
+      </span>
+    </a>
 
-<!-- ===== コマンドメニュー（モーダル） ===== -->
-<div class="menu-overlay" id="menu-overlay">
-  <div class="menu-window" role="dialog" aria-modal="true" aria-labelledby="menu-dialog-title" id="menu-dialog">
-    <p class="menu-title" id="menu-dialog-title">COMMAND?</p>
-    <ul class="menu-list" id="menu-list">
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>note
-        </a>
-      </li>
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>X
-        </a>
-      </li>
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>MY WEBSITE（自作サイト）
-        </a>
-      </li>
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>LINK 01
-        </a>
-      </li>
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>LINK 02
-        </a>
-      </li>
-      <li>
-        <a class="menu-link" href="#" target="_blank" rel="noopener noreferrer" data-menu-item><!-- TODO: URL差し替え -->
-          <span class="cursor">▶</span>LINK 03
-        </a>
-      </li>
-    </ul>
-    <p class="menu-close-hint">↑↓:移動　Enter:決定　Esc:閉じる</p>
-  </div>
-</div>
-
-<!-- ===== LINKSセクション（JS無しでも到達可能） ===== -->
-<main>
-  <section class="links-section" aria-labelledby="links-heading">
-    <div class="section-inner">
-      <h2 class="section-heading" id="links-heading">LINKS</h2>
-      <ul class="link-buttons">
-        <li><a href="#" target="_blank" rel="noopener noreferrer">note</a></li> <!-- TODO: URL差し替え -->
-        <li><a href="#" target="_blank" rel="noopener noreferrer">X</a></li> <!-- TODO: URL差し替え -->
-        <li><a href="#" target="_blank" rel="noopener noreferrer">MY WEBSITE（自作サイト）</a></li> <!-- TODO: URL差し替え -->
-        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 01</a></li> <!-- TODO: URL差し替え -->
-        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 02</a></li> <!-- TODO: URL差し替え -->
-        <li><a href="#" target="_blank" rel="noopener noreferrer">LINK 03</a></li> <!-- TODO: URL差し替え -->
-      </ul>
+    <div class="secondary-links">
+      <a class="link-card link-card--secondary" href="https://note.com/okachinjr" target="_blank" rel="noopener noreferrer">
+        <span class="link-card__label">note</span>
+      </a>
+      <a class="link-card link-card--secondary" href="https://x.com/okachinJr" target="_blank" rel="noopener noreferrer">
+        <span class="link-card__label">X</span>
+      </a>
     </div>
-  </section>
+  </nav>
 
-  <!-- ===== バナーセクション ===== -->
-  <section class="banner-section" aria-label="キャラクターバナー">
-    <figure class="character-banner">
-      <img
-        src="assets/images/character-banner-v1.png"
-        alt="主人公、ヒロイン、ペットの犬、魔王が横一列に並ぶ、緑モノクロのゲームボーイ風ピクセルアート。"
-        width="2079"
-        height="756"
-        decoding="async"
-      >
-    </figure>
+  <footer class="site-footer">
     <p class="copyright">&copy; 1995 OKACHIN JR.</p>
-  </section>
+  </footer>
 </main>
-
-<script>
-  (function () {
-    'use strict';
-
-    var pressStartBtn = document.getElementById('press-start-btn');
-    var overlay = document.getElementById('menu-overlay');
-    var menuDialog = document.getElementById('menu-dialog');
-    var menuItems = Array.prototype.slice.call(document.querySelectorAll('[data-menu-item]'));
-    var activeIndex = 0;
-    var lastFocusedElement = null;
-
-    function setActiveIndex(index) {
-      if (menuItems.length === 0) {
-        return;
-      }
-      activeIndex = (index + menuItems.length) % menuItems.length;
-      menuItems.forEach(function (item, i) {
-        item.classList.toggle('is-active', i === activeIndex);
-      });
-      menuItems[activeIndex].focus();
-    }
-
-    function openMenu() {
-      lastFocusedElement = document.activeElement;
-      overlay.classList.add('is-open');
-      document.addEventListener('keydown', handleMenuKeydown);
-      setActiveIndex(0);
-    }
-
-    function closeMenu() {
-      overlay.classList.remove('is-open');
-      document.removeEventListener('keydown', handleMenuKeydown);
-      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-        lastFocusedElement.focus();
-      }
-    }
-
-    function handleMenuKeydown(event) {
-      switch (event.key) {
-        case 'ArrowDown':
-          event.preventDefault();
-          setActiveIndex(activeIndex + 1);
-          break;
-        case 'ArrowUp':
-          event.preventDefault();
-          setActiveIndex(activeIndex - 1);
-          break;
-        case 'Enter':
-          event.preventDefault();
-          menuItems[activeIndex].click();
-          break;
-        case 'Escape':
-          event.preventDefault();
-          closeMenu();
-          break;
-        case 'Tab':
-          // メニュー内にフォーカスを留める
-          event.preventDefault();
-          if (event.shiftKey) {
-            setActiveIndex(activeIndex - 1);
-          } else {
-            setActiveIndex(activeIndex + 1);
-          }
-          break;
-        default:
-          break;
-      }
-    }
-
-    pressStartBtn.addEventListener('click', openMenu);
-
-    pressStartBtn.addEventListener('keydown', function (event) {
-      var key = event.key.toLowerCase();
-      if (key === 'enter' || key === ' ' || key === 's') {
-        event.preventDefault();
-        openMenu();
-      }
-    });
-
-    // タイトル画面らしく、どこにフォーカスがあってもSキーでスタートできるようにする
-    document.addEventListener('keydown', function (event) {
-      if (overlay.classList.contains('is-open')) {
-        return;
-      }
-      if (event.key.toLowerCase() === 's') {
-        event.preventDefault();
-        openMenu();
-      }
-    });
-
-    overlay.addEventListener('click', function (event) {
-      if (event.target === overlay) {
-        closeMenu();
-      }
-    });
-
-    menuItems.forEach(function (item, index) {
-      item.addEventListener('mouseenter', function () {
-        setActiveIndex(index);
-      });
-      item.addEventListener('focus', function () {
-        activeIndex = index;
-        menuItems.forEach(function (menuItem, i) {
-          menuItem.classList.toggle('is-active', i === index);
-        });
-      });
-    });
-
-    // ブートフェード演出は一度だけ、アニメーション終了後に要素を除去する
-    var bootFade = document.getElementById('boot-fade');
-    if (bootFade) {
-      bootFade.addEventListener('animationend', function () {
-        bootFade.remove();
-      });
-      // reduced-motion環境ではCSSでdisplay:noneのためanimationendが発火しない可能性がある
-      window.setTimeout(function () {
-        if (bootFade.parentNode) {
-          bootFade.remove();
-        }
-      }, 800);
-    }
-  })();
-</script>
 
 </body>
 </html>

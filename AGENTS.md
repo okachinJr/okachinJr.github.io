@@ -1,7 +1,7 @@
 # AGENTS.md — okachinJr.github.io（おかちんJr. 個人サイト）
 
 GitHub Pages で公開する個人サイト（カスタムドメイン: `www.okachinjr.com`）。
-初代ゲームボーイ（DMG）のタイトル画面を再現した1ファイル構成。2026-07-11 に旧構成（styles/ + scripts/ 分離型）から全面差し替えた。旧版は Git 履歴にある。
+初代ゲームボーイ（DMG）の画風を使った、ヒーロー画像＋3リンク＋フッターのシンプルな1ファイル構成。2026-07-12 にゲームタイトル画面型の旧構成から整理した。旧版は Git 履歴にある。
 
 **このファイルはデザインハーネス（デザイン保護規則）を兼ねる。「不変条件」と書かれた項目を破る変更は、ユーザーが明示的に指示した場合を除き禁止。**
 
@@ -10,7 +10,8 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 | パス | 役割 |
 |---|---|
 | `index.html` | サイト本体。CSS/JS 完全インライン、これ1つで完結 |
-| `assets/images/hero-title-screen.png` | メインビジュアル（後述の通り変更禁止） |
+| `assets/images/hero-home-v2.png` | 現行メインビジュアル（後述の通り変更禁止） |
+| `assets/images/hero-title-screen.png` | 旧タイトル画面。現行デザインでは未使用だが、参照・履歴用として削除禁止 |
 | `assets/icons/*.png` | アイコン素材6枚。**現デザインでは未使用だが削除禁止**（ユーザーが Pixquare 製アイコンに差し替えて将来使う計画あり） |
 | `CNAME` | カスタムドメイン設定。**変更・削除・リネーム禁止**（消すと公開ドメインが壊れる） |
 | `design-harness-c/` | **このサイトとは無関係**。別デザイン（レトロホームページ型）で新規サイトを作るための持ち出し用キット。`index.html` にこのフォルダの様式を適用しないこと。指示がない限り編集しないこと（詳細は同フォルダの README.md） |
@@ -50,11 +51,12 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 - 新規アニメーションを足す場合も必ず `@media (prefers-reduced-motion: reduce)` で停止させる
 
 ### 5. 構造の不変条件（セクション順序を維持）
-1. タイトル画面（`100dvh`、ヒーロー画像を二重枠フレームで中央表示）
-2. `▶ PRESS START ◀` ボタン（点滅、クリック / Enter / Space / S キーで発動）
-3. コマンドメニュー（`role="dialog"`、6リンク、↑↓移動 / Enter決定 / Esc閉じ / フォーカストラップ / 閉じたら元の位置へフォーカス復帰）
-4. LINKSセクション — **JSが無効でも全リンクへ到達できる保険。削除禁止**
-5. バナーセクション（88×31pxバナー）+ `© 1995 OKACHIN JR.`
+1. 4:3ヒーロー画像（サイト内で唯一の主役）
+2. 主リンク `MY WEBSITE`（高さ80px）
+3. 副リンク `note` / `X`（2列、高さ64px以上）
+4. 控えめな `© 1995 OKACHIN JR.` フッター
+
+`PRESS START`、操作説明、コマンドメニュー、`LINKS`見出し、`LINK 01〜03`、大型集合バナーを再追加しない。
 
 ### 6. 実装の規律
 - 1ファイル構成を維持（CSS/JSはインライン、外部JSライブラリ・ビルドツール導入禁止）
@@ -71,13 +73,14 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 
 ## ヒーロー画像に関する注意（不変条件）
 
-- 対象: `assets/images/hero-title-screen.png`
+- 対象: `assets/images/hero-home-v2.png`
 - ユーザーが明示しない限り、**画像の差し替え・加工・レイアウト変更をしない**
-- SHA256: `64A5784199E72BD0455DB1E75CE6555C6623BFD46474DDF031E32A722286C60D`
+- 比率: 4:3
+- SHA256: `4D4682B845A5176B52E97B1F292C00F913ABFD2B84DAC6ADD2EE46CD461BB7FD`
 - 重要な変更後はハッシュ確認を推奨:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 assets\images\hero-title-screen.png
+Get-FileHash -Algorithm SHA256 assets\images\hero-home-v2.png
 ```
 
 ## アイコン画像の扱い（将来の差し替え用メモ）
@@ -92,9 +95,10 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-title-screen.png
 
 - [ ] 375px幅で横スクロールが発生しない（`scrollWidth === clientWidth`）
 - [ ] コンソールにエラー・警告・ログがない
-- [ ] PRESS START → メニュー開閉・↑↓/Enter/Esc・フォーカス復帰が動く
+- [ ] 表示リンクが `MY WEBSITE` / `note` / `X` の実リンク3件だけになっている
+- [ ] `PRESS START` / `COMMAND?` / `LINKS` / `LINK 01〜03` がない
 - [ ] 使用色が既定5色（+オーバーレイの半透明1色）のみ
-- [ ] `prefers-reduced-motion: reduce` で点滅・フェードが止まる
+- [ ] 375px幅でヒーロー、主リンク、副リンク2列、フッターの階層が崩れない
 - [ ] `CNAME` が変更されていない
 
 ## 公開（GitHub Pages）に関する注意
