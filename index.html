@@ -304,48 +304,41 @@
     text-align: center;
   }
 
-  .banner-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin: 0 0 1.5rem;
-    padding: 0;
-    list-style: none;
-  }
-
-  .banner {
-    width: 88px;
-    height: 31px;
+  .character-banner {
+    width: min(760px, 100%);
+    margin: 0 auto 1.5rem;
     border: 2px solid var(--gb4);
-    background: var(--gb1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    line-height: 1.1;
+    background: var(--gb0);
+    box-shadow: 4px 4px 0 var(--gb1);
     overflow: hidden;
-    flex-shrink: 0;
+    clip-path: polygon(
+      6px 0,
+      calc(100% - 6px) 0,
+      calc(100% - 6px) 2px,
+      100% 2px,
+      100% calc(100% - 6px),
+      calc(100% - 2px) calc(100% - 6px),
+      calc(100% - 2px) 100%,
+      6px 100%,
+      6px calc(100% - 2px),
+      0 calc(100% - 2px),
+      0 6px,
+      2px 6px,
+      2px 2px,
+      6px 2px
+    );
   }
 
-  .banner__line1 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 6px;
-    color: var(--gb4);
-    letter-spacing: 0.02em;
-  }
-
-  .banner__line2 {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 6px;
-    color: var(--gb3);
-    letter-spacing: 0.02em;
-    margin-top: 3px;
+  .character-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
   }
 
   .copyright {
     font-family: 'Press Start 2P', monospace;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     color: var(--gb2);
     margin: 0;
   }
@@ -432,25 +425,16 @@
   </section>
 
   <!-- ===== バナーセクション ===== -->
-  <section class="banner-section" aria-label="相互リンクバナー">
-    <ul class="banner-row">
-      <li class="banner" aria-hidden="true">
-        <span class="banner__line1">OKACHIN</span>
-        <span class="banner__line2">JR.</span>
-      </li>
-      <li class="banner" aria-hidden="true">
-        <span class="banner__line1">LINK</span>
-        <span class="banner__line2">FREE</span>
-      </li>
-      <li class="banner" aria-hidden="true">
-        <span class="banner__line1">GAME</span>
-        <span class="banner__line2">BOY(R)</span>
-      </li>
-      <li class="banner" aria-hidden="true">
-        <span class="banner__line1">88 x 31</span>
-        <span class="banner__line2">SINCE '95</span>
-      </li>
-    </ul>
+  <section class="banner-section" aria-label="キャラクターバナー">
+    <figure class="character-banner">
+      <img
+        src="assets/images/character-banner-v1.png"
+        alt="主人公、ヒロイン、ペットの犬、魔王が横一列に並ぶ、緑モノクロのゲームボーイ風ピクセルアート。"
+        width="2079"
+        height="756"
+        decoding="async"
+      >
+    </figure>
     <p class="copyright">&copy; 1995 OKACHIN JR.</p>
   </section>
 </main>

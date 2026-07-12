@@ -116,3 +116,9 @@ C:\Users\wakat\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\p
 ```text
 <上記python.exe> -m http.server 3999
 ```
+
+## Playwright 実行環境（Codex）
+
+- Playwright で表示・操作検証を行う場合は、Codex 環境に同梱・インストール済みの **Chromium** を使用すること。
+- Google Chrome を既定ブラウザとして要求する経路は避け、Chrome の追加インストールを行わないこと（ユーザーが明示的に指示した場合を除く）。
+- Playwright CLI が Google Chrome を要求して起動できない場合は、`visual-qa` の仮想環境にある Playwright から `pw.chromium.launch()` を使用するなど、既存 Chromium で成立する経路へ切り替えること。
