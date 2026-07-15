@@ -164,7 +164,9 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 - 場面イラスト版は比較中の追加候補。`assets/candidates/nav-card-vignette-v1/` の背景透過PNG 3枚を使い、格子ステージ全体を小さな場面として見せる。比較工程へ進む承認は得ているが、最終採用は未確定。
 - 場面イラスト版のカード内上下配分はユーザー確認済み。PCは格子ステージ228px＋ラベル40px（約85:15）、スマホは格子ステージ120px＋ラベル44px（約73:27）とし、ラベル文字を上下左右中央へ置く。スマホのラベル高は2行になる `MY WEBSITE` を収める最小実用値として扱う。
 - 上下配分の確認時点では場面イラスト3点のサイズ・位置は未確定。次工程でこの格子ステージ寸法を基準に調整し、ユーザー承認を得るまで最終採用扱いにしない。
-- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。`B-02 FIXED` / `VIGNETTE NEW` とPC／スマホを切り替えられる。
+- PCカード比率に合わせた追加候補 `PC FIT NEW` を `assets/candidates/nav-card-vignette-pc-v1/` に保持する。3点とも1172×912px（293:228）、背景透過、既定5色の単体PNGで、PCの格子ステージへ幅・高さ100%／`object-fit: contain` で配置確認済み。素材自体と最終採用は未承認のため、確定素材へ移動・上書きしない。
+- `PC FIT NEW` はPC専用の検討素材。対応するPHONE版は未生成であり、PC候補の承認前に生成しない。
+- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。`B-02 FIXED` / `VIGNETTE NEW` / `PC FIT NEW` を切り替えられる。`PC FIT NEW` 選択中だけPHONE切り替えを無効にし、既存2候補ではPC／スマホを引き続き比較できる。
 - A案とB案の最終選択は引き続き未確定。B案内の素材選択と、サイト全体のA案／B案選択を混同しない。
 
 ### 素材提案から採用までの不変条件
