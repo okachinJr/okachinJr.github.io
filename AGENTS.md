@@ -158,6 +158,15 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 - 不採用の次期ナビ候補は `assets/icons/` から削除済み。旧版の6アイコンは履歴用として残す。
 - 実配置比較ページ: `reports/codex-work/site-layout-a-b-comparison.html`。確定済み3アイコンを固定した状態で、`LAYOUT A` / `LAYOUT B` とPC／スマホ表示を切り替えられる。比較ページは選定専用であり、公開サイト本体ではない。
 
+### B案リンクカード候補（2026-07-15）
+
+- B案02は保持必須の固定候補。`assets/icons/nav-my-website-v1.png` / `nav-note-v1.png` / `nav-x-v1.png` を中程度の大きさで配置し、MY WEBSITEの魔王だけ視覚位置をPCで12px、スマホで8px下げる。ユーザーが明示しない限り削除・変更しない。
+- 場面イラスト版は比較中の追加候補。`assets/candidates/nav-card-vignette-v1/` の背景透過PNG 3枚を使い、格子ステージ全体を小さな場面として見せる。比較工程へ進む承認は得ているが、最終採用は未確定。
+- 場面イラスト版のカード内上下配分はユーザー確認済み。PCは格子ステージ228px＋ラベル40px（約85:15）、スマホは格子ステージ120px＋ラベル44px（約73:27）とし、ラベル文字を上下左右中央へ置く。スマホのラベル高は2行になる `MY WEBSITE` を収める最小実用値として扱う。
+- 上下配分の確認時点では場面イラスト3点のサイズ・位置は未確定。次工程でこの格子ステージ寸法を基準に調整し、ユーザー承認を得るまで最終採用扱いにしない。
+- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。`B-02 FIXED` / `VIGNETTE NEW` とPC／スマホを切り替えられる。
+- A案とB案の最終選択は引き続き未確定。B案内の素材選択と、サイト全体のA案／B案選択を混同しない。
+
 ### 素材提案から採用までの不変条件
 
 - 今後の画像候補は、比較ボードの一部としてではなく、**候補ごとに独立した単体画像ファイルとして生成・提示する**。
