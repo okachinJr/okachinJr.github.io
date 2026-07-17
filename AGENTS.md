@@ -5,12 +5,12 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 
 **このファイルはデザインハーネス（デザイン保護規則）を兼ねる。「不変条件」と書かれた項目を破る変更は、ユーザーが明示的に指示した場合を除き禁止。**
 
-## 現在の移行状態（2026-07-14）
+## 現在の移行状態（2026-07-18）
 
 - `index.html` はまだ旧実装の `hero-home-v2.png` と幅420pxの1カラムを使用している。これは**公開中の現状**であり、次期デザインの基準ではない。
 - 次期ヒーローは `logo-home-v1.png` と `hero-character-desktop-v3.png` をCSS背景上で重ねる構成で確定済み。
 - PCは「PC03の構図＋ロゴ全体を前面」、スマホは「スマホ02の構図＋ロゴ全体を前面」を最終採用する。
-- ナビ素材は `MY WEBSITE` / `note` / `X` の3点すべて確定済み。`note` はC案を採用した。サイト全体のA案・B案は比較継続中で、最終レイアウトは未確定。詳細は「ナビアイコンと素材承認」を参照する。
+- ナビ素材は `MY WEBSITE` / `note` / `X` の3点すべて確定済み。B案のPCリンクカードは `PC FIT NEW`＋`AI 04 WORD PROCESSOR` を正式案として採用した。サイト全体のA案・B案選択とB案のPHONE版は未確定。詳細は「ナビアイコンと素材承認」を参照する。
 - 確定レイアウトのローカル参照: `reports/codex-work/final-adopted-hero-layout.html`（作業用レポート。公開サイト本体ではない）。
 
 ### 資料の優先順位
@@ -158,17 +158,16 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 - 不採用の次期ナビ候補は `assets/icons/` から削除済み。旧版の6アイコンは履歴用として残す。
 - 実配置比較ページ: `reports/codex-work/site-layout-a-b-comparison.html`。確定済み3アイコンを固定した状態で、`LAYOUT A` / `LAYOUT B` とPC／スマホ表示を切り替えられる。比較ページは選定専用であり、公開サイト本体ではない。
 
-### B案リンクカード候補（2026-07-15）
+### B案リンクカード選定（2026-07-18）
 
-- B案02は保持必須の固定候補。`assets/icons/nav-my-website-v1.png` / `nav-note-v1.png` / `nav-x-v1.png` を中程度の大きさで配置し、MY WEBSITEの魔王だけ視覚位置をPCで12px、スマホで8px下げる。ユーザーが明示しない限り削除・変更しない。
-- 場面イラスト版は比較中の追加候補。`assets/candidates/nav-card-vignette-v1/` の背景透過PNG 3枚を使い、格子ステージ全体を小さな場面として見せる。比較工程へ進む承認は得ているが、最終採用は未確定。
+- B案02は比較履歴として保持する。`assets/icons/nav-my-website-v1.png` / `nav-note-v1.png` / `nav-x-v1.png` を中程度の大きさで配置し、MY WEBSITEの魔王だけ視覚位置をPCで12px、スマホで8px下げる。正式採用したPC FIT NEWを置き換える構成ではない。
+- 旧場面イラスト版は比較履歴として保持する。`assets/candidates/nav-card-vignette-v1/` の背景透過PNG 3枚を使い、格子ステージ全体を小さな場面として見せる構成だったが、PC版の正式案には採用しない。
 - 場面イラスト版のカード内上下配分はユーザー確認済み。PCは格子ステージ228px＋ラベル40px（約85:15）、スマホは格子ステージ120px＋ラベル44px（約73:27）とし、ラベル文字を上下左右中央へ置く。スマホのラベル高は2行になる `MY WEBSITE` を収める最小実用値として扱う。
-- 上下配分の確認時点では場面イラスト3点のサイズ・位置は未確定。次工程でこの格子ステージ寸法を基準に調整し、ユーザー承認を得るまで最終採用扱いにしない。
-- PCカード比率に合わせた追加候補 `PC FIT NEW` を `assets/candidates/nav-card-vignette-pc-v1/` に保持する。3点とも1172×912px（293:228）、背景透過、既定5色の単体PNGで、PCの格子ステージへ幅・高さ100%／`object-fit: contain` で配置確認済み。素材自体と最終採用は未承認のため、確定素材へ移動・上書きしない。
-- `PC FIT NEW` のPC用noteアートは、DOG CURRENT / AI 02 TYPEWRITER / AI 04 WORD PROCESSORの3案から `assets/candidates/nav-note-billiard-ai-pc-v1/note-billiard-ai-d-pc-v1.png`（AI 04 WORD PROCESSOR）を2026-07-18に採用した。この決定はPC FIT NEW内のnote素材選択であり、B案全体やA案／B案の最終採用決定ではない。採用画像は再生成・上書きしない。
-- `PC FIT NEW` はPC専用の検討素材。対応するPHONE版は未生成であり、PC候補の承認前に生成しない。
-- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。`B-02 FIXED` / `VIGNETTE NEW` / `PC FIT NEW` を切り替えられる。`PC FIT NEW` 選択中だけPHONE切り替えを無効にし、既存2候補ではPC／スマホを引き続き比較できる。
-- A案とB案の最終選択は引き続き未確定。B案内の素材選択と、サイト全体のA案／B案選択を混同しない。
+- PC版は `PC FIT NEW`＋`AI 04 WORD PROCESSOR` をB案内の正式案として2026-07-18に採用した。MY WEBSITEは `assets/candidates/nav-card-vignette-pc-v1/my-website-pc-v1.png`、noteは `assets/candidates/nav-note-billiard-ai-pc-v1/note-billiard-ai-d-pc-v1.png`、Xは `assets/candidates/nav-card-vignette-pc-v1/x-pc-v1.png` を使用する。3点とも1172×912px（293:228）、背景透過、既定5色で、PCの格子ステージへ幅・高さ100%／`object-fit: contain` で配置する。
+- 正式採用した上記3画像は再生成・上書き・別案への差し替えをしない。サイト全体のA案／B案が決定して本体実装へ移るまでは、現在の候補ディレクトリ内のファイルを採用原本として保護する。
+- `PC FIT NEW` はPC専用の正式案。対応するPHONE版は未生成・未確定であり、PC版とは別の縦横比に合わせて今後提案する。
+- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。正式採用した `PC FIT NEW`＋`AI 04 WORD PROCESSOR` をページ上部の既定表示とし、`B-02 FIXED` / 旧`VIGNETTE` / 不採用note案は折りたたみ式の比較履歴へ分離する。`PC FIT NEW` 選択中だけPHONE切り替えを無効にし、スマホ幅でページを開いた場合も未承認PHONE版ではなくPC正式案を縮小表示する。
+- A案とB案の最終選択は引き続き未確定。今回の正式採用はB案内のPCリンクカード構成に限り、公開サイト本体への採用・公開指示ではない。
 
 ### 素材提案から採用までの不変条件
 
