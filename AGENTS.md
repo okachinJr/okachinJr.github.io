@@ -39,6 +39,7 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 | `assets/candidates/nav-card-vignette-pc-v1/*.png` | **公開中のPCカード素材**。MY WEBSITEとXを保持する |
 | `assets/candidates/nav-note-billiard-ai-pc-v1/note-billiard-ai-d-pc-v1.png` | **公開中のPC版note素材**。AI 04 WORD PROCESSOR |
 | `assets/candidates/nav-card-vignette-phone-v1/*.png` | **公開中のPHONEカード素材3点**。103:120比率 |
+| `assets/meta/` | OGP画像・ファビコン等のメタ素材。ユーザー承認済み |
 | `CNAME` | カスタムドメイン設定。**変更・削除・リネーム禁止**（消すと公開ドメインが壊れる） |
 | `design-harness-c/` | **このサイトとは無関係**。別デザイン（レトロホームページ型）で新規サイトを作るための持ち出し用キット。`index.html` にこのフォルダの様式を適用しないこと。指示がない限り編集しないこと（詳細は同フォルダの README.md） |
 | `.codex/config.toml` | Codex 設定 |
