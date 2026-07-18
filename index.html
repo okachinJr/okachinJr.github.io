@@ -136,6 +136,17 @@
     box-shadow: 2px 2px 0 var(--gb1);
   }
 
+  .link-card--inactive,
+  .link-card--inactive:hover {
+    background: var(--gb3);
+    transform: none;
+    box-shadow: 4px 4px 0 var(--gb1);
+  }
+
+  .link-card--inactive {
+    pointer-events: none;
+  }
+
   .link-card--primary {
     min-height: 80px;
     padding: 16px 24px;
@@ -194,13 +205,13 @@
     >
   </section>
 
-  <nav class="primary-links" aria-label="メインリンク">
-    <a class="link-card link-card--primary" href="https://nazuna.okachinjr.com/" target="_blank" rel="noopener noreferrer">
+  <nav class="primary-links" aria-label="メインナビゲーション">
+    <div class="link-card link-card--primary link-card--inactive" aria-label="MY WEBSITE（リンク非公開）">
       <span class="link-card__content">
         <span class="link-card__label">MY WEBSITE</span>
         <span class="link-card__description">自作サイト</span>
       </span>
-    </a>
+    </div>
 
     <div class="secondary-links">
       <a class="link-card link-card--secondary" href="https://note.com/okachinjr" target="_blank" rel="noopener noreferrer">

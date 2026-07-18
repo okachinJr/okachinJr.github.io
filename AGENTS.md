@@ -1,7 +1,7 @@
 # AGENTS.md — okachinJr.github.io（おかちんJr. 個人サイト）
 
 GitHub Pages で公開する個人サイト（カスタムドメイン: `www.okachinjr.com`）。
-初代ゲームボーイ（DMG）の5色画風を使い、CSS背景の上へ透過ロゴと透過キャラクターを重ねるヒーロー、実リンクだけのナビ、控えめなフッターで構成する。2026-07-14 にレスポンシブ再設計のヒーロー構成が確定した。
+初代ゲームボーイ（DMG）の5色画風を使い、CSS背景の上へ透過ロゴと透過キャラクターを重ねるヒーロー、公開可能なリンクだけを有効化したナビ、控えめなフッターで構成する。2026-07-14 にレスポンシブ再設計のヒーロー構成が確定した。
 
 **このファイルはデザインハーネス（デザイン保護規則）を兼ねる。「不変条件」と書かれた項目を破る変更は、ユーザーが明示的に指示した場合を除き禁止。**
 
@@ -10,7 +10,7 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 - `index.html` はまだ旧実装の `hero-home-v2.png` と幅420pxの1カラムを使用している。これは**公開中の現状**であり、次期デザインの基準ではない。
 - 次期ヒーローは `logo-home-v1.png` と `hero-character-desktop-v3.png` をCSS背景上で重ねる構成で確定済み。
 - PCは「PC03の構図＋ロゴ全体を前面」、スマホは「スマホ02の構図＋ロゴ全体を前面」を最終採用する。
-- ナビ素材は `MY WEBSITE` / `note` / `X` の3点すべて確定済み。B案のPCリンクカードは `PC FIT NEW`＋`AI 04 WORD PROCESSOR` を正式案として採用した。サイト全体のA案・B案選択とB案のPHONE版は未確定。詳細は「ナビアイコンと素材承認」を参照する。
+- ナビ素材は `MY WEBSITE` / `note` / `X` の3点すべて確定済み。B案のPC版は `PC FIT NEW`＋`AI 04 WORD PROCESSOR`、PHONE版は専用の縦長3素材を正式案として採用した。サイト全体のA案・B案選択は未確定。詳細は「ナビアイコンと素材承認」を参照する。
 - 確定レイアウトのローカル参照: `reports/codex-work/final-adopted-hero-layout.html`（作業用レポート。公開サイト本体ではない）。
 
 ### 資料の優先順位
@@ -76,7 +76,7 @@ GitHub Pages で公開する個人サイト（カスタムドメイン: `www.oka
 ### 5. 構造の不変条件（次期デザイン）
 1. CSSの格子またはドット背景（補助。主役化させない）
 2. 透過ロゴ＋透過キャラクターを重ねたレスポンシブヒーロー（サイト内で唯一の主役）
-3. 実リンク `MY WEBSITE` / `note` / `X` のナビ（アイコン上・文字下を基本方針とし、素材は承認後に使用）
+3. `MY WEBSITE` / `note` / `X` のナビ（アイコン上・文字下を基本方針とし、素材は承認後に使用）。`MY WEBSITE` は公開URLが未設定のため非リンク表示とし、実リンクは `note` / `X` のみ有効化する
 4. 控えめな `© 1995 OKACHIN JR.` フッター
 
 - PCとスマホは単なる拡大縮小にせず、後述の採用レイアウトへ切り替える。
@@ -144,7 +144,7 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 
 ## ナビアイコンと素材承認
 
-- 次期ナビは `MY WEBSITE` / `note` / `X` の実リンク3件を「アイコン上・文字下」で見せる方針。
+- 次期ナビは `MY WEBSITE` / `note` / `X` の3項目を「アイコン上・文字下」で見せる方針。`MY WEBSITE` は見た目を保持した非リンク要素とし、公開可能なURLをユーザーが指定するまで `href` を付けない。私用WebアプリのURLを復元せず、`href="#"` などのダミーリンクにも置き換えない。`note` / `X` のみ実リンクとして扱う。
 - 旧素材 `web-app.png` / `note.png` / `x.png` / `instagram.png` / `game.png` / `pixel-art.png` は次期ナビへ自動採用しない。指示がない限り削除もしない。
 - 新しい画像・アイコン・装飾素材を生成したら、複数個まとめて提示してよいが、**ユーザーの明示承認を得るまで次工程へ進まない**。必要に応じて再生成する。
 - アイコンを採用する場合は、同一キャンバス、同一余白、同一拡大方式（Nearest Neighbor）で統一する。
@@ -165,9 +165,9 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 - 場面イラスト版のカード内上下配分はユーザー確認済み。PCは格子ステージ228px＋ラベル40px（約85:15）、スマホは格子ステージ120px＋ラベル44px（約73:27）とし、ラベル文字を上下左右中央へ置く。スマホのラベル高は2行になる `MY WEBSITE` を収める最小実用値として扱う。
 - PC版は `PC FIT NEW`＋`AI 04 WORD PROCESSOR` をB案内の正式案として2026-07-18に採用した。MY WEBSITEは `assets/candidates/nav-card-vignette-pc-v1/my-website-pc-v1.png`、noteは `assets/candidates/nav-note-billiard-ai-pc-v1/note-billiard-ai-d-pc-v1.png`、Xは `assets/candidates/nav-card-vignette-pc-v1/x-pc-v1.png` を使用する。3点とも1172×912px（293:228）、背景透過、既定5色で、PCの格子ステージへ幅・高さ100%／`object-fit: contain` で配置する。
 - 正式採用した上記3画像は再生成・上書き・別案への差し替えをしない。サイト全体のA案／B案が決定して本体実装へ移るまでは、現在の候補ディレクトリ内のファイルを採用原本として保護する。
-- `PC FIT NEW` はPC専用の正式案。対応するPHONE版は未生成・未確定であり、PC版とは別の縦横比に合わせて今後提案する。
-- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。正式採用した `PC FIT NEW`＋`AI 04 WORD PROCESSOR` をページ上部の既定表示とし、`B-02 FIXED` / 旧`VIGNETTE` / 不採用note案は折りたたみ式の比較履歴へ分離する。`PC FIT NEW` 選択中だけPHONE切り替えを無効にし、スマホ幅でページを開いた場合も未承認PHONE版ではなくPC正式案を縮小表示する。
-- A案とB案の最終選択は引き続き未確定。今回の正式採用はB案内のPCリンクカード構成に限り、公開サイト本体への採用・公開指示ではない。
+- PHONE版は `assets/candidates/nav-card-vignette-phone-v1/my-website-phone-v1.png` / `note-phone-v1.png` / `x-phone-v1.png` の3点をB案内の正式案として2026-07-18に採用した。各412×480px（103:120）、背景透過、既定5色の単体PNGで、375px表示時の格子ステージ103×120pxを4倍した基準寸法。ラベルは32px高・11px文字の1行表示とし、モバイル共通の `min-height: 52px` を適用しない。3画像は再生成・上書き・別案への差し替えをしない。
+- B案内の比較ページ: `reports/codex-work/site-layout-b-link-illustration-comparison.html`。正式採用したPC版とPHONE版をページ上部の `PC / FORMAL`・`PHONE / FORMAL` で切り替えられる。`B-02 FIXED` / 旧`VIGNETTE` / 不採用note案は折りたたみ式の比較履歴へ分離する。PHONE表示は375pxの基準幅を維持し、狭い外側画面ではプレビュー全体を縮小して見せる。
+- A案とB案の最終選択は引き続き未確定。今回の正式採用はB案内のPC／PHONEリンクカード構成に限り、公開サイト本体への採用・公開指示ではない。
 
 ### 素材提案から採用までの不変条件
 
@@ -185,7 +185,7 @@ Get-FileHash -Algorithm SHA256 assets\images\hero-character-desktop-v3.png
 - [ ] スマホはスマホ02の縦構成・20px重なりを維持し、ロゴ全体が人物より前面で読める
 - [ ] ロゴとキャラクターがCSS背景上の別レイヤーであり、完成画像1枚へ戻っていない
 - [ ] 背景パターンが補助に留まり、ロゴ・人物・リンクの可読性を邪魔しない
-- [ ] 表示リンクが `MY WEBSITE` / `note` / `X` の実リンク3件だけになっている（明示的な情報設計変更がない限り）
+- [ ] ナビ表示が `MY WEBSITE` / `note` / `X` の3項目だけで、`MY WEBSITE` は公開URL未設定の非リンク要素、`note` / `X` だけが実リンクになっている
 - [ ] ナビ素材を使う場合、承認済みアイコンだけが「アイコン上・文字下」で表示される
 - [ ] `PRESS START` / `COMMAND?` / `LINKS` / `LINK 01〜03` / ダミーリンクがない
 - [ ] 使用色が既定5色のみで、新たな色コードや半透明色がない
